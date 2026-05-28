@@ -1,9 +1,6 @@
 // Array que guarda os ingredientes
 const ingredientes = [];
 
-//Array temporaria
-let ingredientesTemp = [];
-
 // Pegando elementos do HTML
 const nomeReceita =
   document.getElementById("nomeReceita");
@@ -26,78 +23,110 @@ const listaReceitas =
 const visualizarReceita =
   document.getElementById("visualizarReceita");
 
-  // Adiciona ingrediente
+// Adicionar ingrediente
 function adicionarIngrediente() {
 
-  const nome = ingredienteInput.value;
-  const quantidade = Number(quantidadeInput.value);
+  const nome = ingrediente.value;
+
+  const qtd =
+    Number(quantidade.value);
 
   // Condicional
-  if (nome === "" || quantidade <= 0) {
-    alert("Preencha os campos corretamente");
+  if (nome === "" || qtd <= 0) {
+
+    alert("Preencha corretamente!");
+
     return;
   }
 
-  // Objeto
-  const ingrediente = {
+ // Objeto
+  const novoIngrediente = {
+
     nome: nome,
-    quantidade: quantidade
+
+    quantidade: qtd
   };
 
   // Array
-  ingredientes.push(ingrediente);
+  ingredientes.push(novoIngrediente);
 
   mostrarIngredientes();
 
-  ingredienteInput.value = "";
-  quantidadeInput.value = "";
+  ingrediente.value = "";
+  quantidade.value = "";
 }
 
-// Mostra ingredientes na tela
+// Mostrar ingredientes
 function mostrarIngredientes() {
 
-  lista.innerHTML = "";
+  ingredientesTempDiv.innerHTML = "";
 
   // Laço
   for (let i = 0; i < ingredientes.length; i++) {
 
-    lista.innerHTML += `
+    ingredientesTempDiv.innerHTML += `
+
       <p>
-        ${ingredientes[i].nome} -
+        ${ingredientes[i].nome}
+        -
         ${ingredientes[i].quantidade}
       </p>
+
     `;
   }
 }
 
-// Recalcula receita
-function recalcularReceita() {
+// Salvar receita
+function salvarReceita() {
 
-  const base =
-    Number(document.getElementById("porcoesBase").value);
+  const nomeReceita =
+    document.getElementById("nomeReceita").value;
 
-  const desejada =
-    Number(document.getElementById("porcoesDesejadas").value);
+  const modoPreparo =
+    document.getElementById("modoPreparo").value;
 
-  if (base <= 0 || desejada <= 0) {
-    alert("Digite porções válidas");
-    return;
-  }
+  const porcoesBase =
+    document.getElementById("porcoesBase").value;
 
-  lista.innerHTML = "";
+  visualizarReceita.innerHTML = `
+
+    <h2>${nomeReceita}</h2>
+
+    <p>
+      Porções:
+      ${porcoesBase}
+    </p>
+
+    <h3>Ingredientes</h3>
+
+  `;
 
   for (let i = 0; i < ingredientes.length; i++) {
 
-    const novaQuantidade =
-      ingredientes[i].quantidade * desejada / base;
+    visualizarReceita.innerHTML += `
 
-    lista.innerHTML += `
       <p>
-        ${ingredientes[i].nome} -
-        ${novaQuantidade.toFixed(2)}
+        ${ingredientes[i].nome}
+        -
+        ${ingredientes[i].quantidade}
       </p>
+
     `;
   }
+
+  visualizarReceita.innerHTML += `
+
+    <h3>Modo de preparo</h3>
+
+    <p>${modoPreparo}</p>
+
+  `;
+
+  listaReceitas.innerHTML += `
+
+    <p>${nomeReceita}</p>
+
+  `;
 }
 
 // Eventos
@@ -106,7 +135,7 @@ btnAdicionar.addEventListener(
   adicionarIngrediente
 );
 
-btnCalcular.addEventListener(
+btnSalvar.addEventListener(
   "click",
-  recalcularReceita
+  salvarReceita
 );
