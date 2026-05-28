@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Array que guarda os ingredientes
+// Array que guarda os ingredientes
 const ingredientes = [];
 
 // Pegando elementos do HTML
@@ -17,12 +16,12 @@ const btnAdicionar =
   document.getElementById("btnAdicionar");
 const btnSalvar =
   document.getElementById("btnSalvar");
-const listaIngredientes =
-  document.getElementById("listaIngredientes");
+const ingredientesTempDiv =
+  document.getElementById("ingredientesTemp");
 const listaReceitas =
   document.getElementById("listaReceitas");
-const btnCalcular =
-  document.getElementById("btnCalcular");
+const visualizarReceita =
+  document.getElementById("visualizarReceita");
 
 // Adicionar ingrediente
 function adicionarIngrediente() {
@@ -60,11 +59,12 @@ function adicionarIngrediente() {
 // Mostrar ingredientes
 function mostrarIngredientes() {
 
-  listaIngredientes.innerHTML = "";
+  ingredientesTempDiv.innerHTML = "";
 
+  // Laço
   for (let i = 0; i < ingredientes.length; i++) {
 
-    listaIngredientes.innerHTML += `
+    ingredientesTempDiv.innerHTML += `
 
       <p>
         ${ingredientes[i].nome}
@@ -79,56 +79,55 @@ function mostrarIngredientes() {
 // Salvar receita
 function salvarReceita() {
 
-  const nome = nomeReceita.value;
-  const modo = modoPreparo.value;
-  const base = porcoesBase.value;
+  const nomeReceita =
+    document.getElementById("nomeReceita").value;
 
-  listaReceitas.innerHTML += `
-    <div>
-      <h2>${nome}</h2>
+  const modoPreparo =
+    document.getElementById("modoPreparo").value;
 
-      <p>Porções: ${base}</p>
+  const porcoesBase =
+    document.getElementById("porcoesBase").value;
 
-      <h3>Ingredientes</h3>
+  visualizarReceita.innerHTML = `
 
-      ${ingredientes.map(i =>
-        `<p>${i.nome} - ${i.quantidade}</p>`
-      ).join("")}
+    <h2>${nomeReceita}</h2>
 
-      <h3>Modo de preparo</h3>
-      <p>${modo}</p>
-    </div>
-    <hr>
+    <p>
+      Porções:
+      ${porcoesBase}
+    </p>
+
+    <h3>Ingredientes</h3>
+
   `;
-  ingredientes.length = 0;
-  mostrarIngredientes();
-}
-
-function recalcularReceita() {
-
-  const base = Number(document.getElementById("porcoesBase").value);
-  const desejada = Number(document.getElementById("porcoesDesejadas").value);
-
-  if (base <= 0 || desejada <= 0) {
-    alert("Digite porções válidas!");
-    return;
-  }
-
-  listaIngredientes.innerHTML = "";
 
   for (let i = 0; i < ingredientes.length; i++) {
 
-    const novaQuantidade =
-      (ingredientes[i].quantidade * desejada) / base;
+    visualizarReceita.innerHTML += `
 
-    listaIngredientes.innerHTML += `
       <p>
-        ${ingredientes[i].nome} - ${novaQuantidade.toFixed(2)}
+        ${ingredientes[i].nome}
+        -
+        ${ingredientes[i].quantidade}
       </p>
+
     `;
   }
-}
 
+  visualizarReceita.innerHTML += `
+
+    <h3>Modo de preparo</h3>
+
+    <p>${modoPreparo}</p>
+
+  `;
+
+  listaReceitas.innerHTML += `
+
+    <p>${nomeReceita}</p>
+
+  `;
+}
 
 // Eventos
 btnAdicionar.addEventListener(
@@ -140,10 +139,4 @@ btnSalvar.addEventListener(
   "click",
   salvarReceita
 );
-
-btnCalcular.addEventListener(
-  "click",
   recalcularReceita
-);
-
-});
