@@ -1,16 +1,32 @@
 // Array que guarda os ingredientes
 const ingredientes = [];
 
+//Array temporaria
+let ingredientesTemp = [];
+
 // Pegando elementos do HTML
-const ingredienteInput = document.getElementById("ingrediente");
-const quantidadeInput = document.getElementById("quantidade");
+const nomeReceita =
+  document.getElementById("nomeReceita");
+const modoPreparo =
+  document.getElementById("modoPreparo");
+const porcoesBase =
+  document.getElementById("porcoesBase");
+const ingrediente =
+  document.getElementById("ingrediente");
+const quantidade =
+  document.getElementById("quantidade");
+const btnAdicionar =
+  document.getElementById("btnAdicionar");
+const btnSalvar =
+  document.getElementById("btnSalvar");
+const ingredientesTempDiv =
+  document.getElementById("ingredientesTemp");
+const listaReceitas =
+  document.getElementById("listaReceitas");
+const visualizarReceita =
+  document.getElementById("visualizarReceita");
 
-const btnAdicionar = document.getElementById("btnAdicionar");
-const btnCalcular = document.getElementById("btnCalcular");
-
-const lista = document.getElementById("listaIngredientes");
-
-// Adiciona ingrediente
+  // Adiciona ingrediente
 function adicionarIngrediente() {
 
   const nome = ingredienteInput.value;
