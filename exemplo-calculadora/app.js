@@ -139,3 +139,4 @@ btnSalvar.addEventListener(
   "click",
   salvarReceita
 );
+  recalcularReceita
