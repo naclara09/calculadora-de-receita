@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Receitas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Calculadora de Receita</h1>
+
+  <label>Nome da Receita</label>
+  <input type="text" id="nomeReceita">
+
+  <label>Porções Base</label>
+  <input type="number" id="porcoesBase">
+
+  <label>Porções Desejadas</label>
+  <input type="number" id="porcoesDesejadas">
+
+  <h2>Ingrediente</h2>
+
+  <input type="text" id="ingrediente" placeholder="Ingrediente">
+  <input type="number" id="quantidade" placeholder="Quantidade">
+
+  <button id="btnAdicionar">
+    Adicionar Ingrediente
+  </button>
+
+  <button id="btnCalcular">
+    Recalcular Receita
+  </button>
+
+  <div id="listaIngredientes"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
